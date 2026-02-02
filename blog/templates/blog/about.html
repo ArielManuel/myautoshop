@@ -1,0 +1,146 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About - MyAutoShop</title>
+
+  <link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
+</head>
+<body>
+
+  <!-- TOP NAV (same as home) -->
+  <header class="topbar">
+    <div class="container nav">
+      <div class="brand">
+        <span class="brand-mark">⚙️</span>
+        <span class="brand-name">MyAutoShop</span>
+      </div>
+
+      <nav class="menu">
+        <a href="/" class="{% if request.path == '/' %}active{% endif %}">Home</a>
+        <a href="/about/" class="{% if request.path == '/about/' %}active{% endif %}">About</a>
+        <a href="/#services">Services</a>
+        <a href="/#products">Products</a>
+        <a href="/#contact">Contact</a>
+
+        <a class="cart-btn" href="/cart/" aria-label="Cart">
+          🛒 <span class="cart-badge">0</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ABOUT HERO (like your screenshot style) -->
+  <section class="about-hero">
+    <div class="container about-hero-content">
+      <h1>About <span class="about-accent">MyAutoShop</span></h1>
+      <p>Your trusted partner for professional auto and truck parts supply</p>
+    </div>
+  </section>
+<!-- OUR MISSION -->
+<section class="section">
+  <div class="container mission-wrap">
+    <h2 class="mission-title">Our Mission</h2>
+
+    <p class="mission-text">
+      At MyAutoShop, we’re committed to providing high-quality auto parts and
+      dependable service to keep your vehicle running smoothly and safely.
+      Our mission is to combine practical expertise with reliable products
+      to deliver the right solutions—whether for daily maintenance, repairs,
+      or upgrades.
+    </p>
+
+    <p class="mission-text">
+      We believe in building long-term relationships with our customers through
+      honest communication, transparent pricing, and responsive support.
+      Whether you need trusted parts or professional assistance,
+      MyAutoShop is your reliable partner on the road.
+    </p>
+  </div>
+</section>
+
+<!-- CORE VALUES -->
+<section class="section">
+  <div class="container">
+    <h2 class="center-title">Our Core <span>Values</span></h2>
+    <p class="center-sub">The principles that guide everything we do</p>
+
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">🛡️</div>
+        <h4>Reliability</h4>
+        <p>We stand behind every part we sell and every service we provide.</p>
+      </div>
+
+      <div class="value-card">
+        <div class="value-icon">❤️</div>
+        <h4>Professional Tools</h4>
+        <p>Using modern equipment for accurate diagnostics and repairs.</p>
+      </div>
+
+      <div class="value-card">
+        <div class="value-icon">💲</div>
+        <h4>Honest Pricing</h4>
+        <p>Transparent pricing. You only pay for what you need.</p>
+      </div>
+
+      <div class="value-card">
+        <div class="value-icon">🎧</div>
+        <h4>Customer Support</h4>
+        <p>Friendly support team always ready to help.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROFESSIONAL EXCELLENCE -->
+<section class="excellence">
+  <div class="container">
+    <h2>Professional <span>Excellence</span></h2>
+
+    <p>
+      Our team at <strong>MyAutoShop</strong> uses modern diagnostic tools and
+      hands-on expertise to deliver accurate vehicle assessments and dependable
+      solutions. This allows us to identify issues quickly—saving you time and
+      money on unnecessary repairs.
+    </p>
+
+    <p>
+      We maintain a reliable inventory of quality auto parts for various makes
+      and models. Our commitment to excellence means you can trust MyAutoShop
+      for your everyday automotive needs.
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <h4>MyAutoShop</h4>
+      <p>Professional auto parts and dependable vehicle solutions.</p>
+    </div>
+
+    <div>
+      <h4>Quick Links</h4>
+      <a href="/">Home</a>
+      <a href="/about/">About</a>
+      <a href="#services">Services</a>
+      <a href="#products">Products</a>
+    </div>
+
+    <div>
+      <h4>Contact Us</h4>
+      <p>📞 +63 970 110 2359</p>
+      <p>✉️ michaelmanuel17@gmail.com</p>
+      <p>📍 Philippines</p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 MyAutoShop. All rights reserved.
+  </div>
+</footer>
+

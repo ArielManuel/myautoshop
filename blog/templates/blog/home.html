@@ -1,16 +1,17 @@
 {% load static %}
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Auto Parts & Services</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Auto Parts & Services</title>
 
-  <!-- IMPORTANT: Django static -->
-  <link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
+    <!-- Django static CSS -->
+    <link rel="stylesheet" href="/static/blog/css/style.css">
 </head>
 
 <body>
+
   <!-- TOP NAV -->
   <header class="topbar">
     <div class="container nav">
@@ -19,13 +20,18 @@
         <span class="brand-name">MyAutoShop</span>
       </div>
 
-      <nav class="menu">
-        <a href="#home" class="active">Home</a>
-        <a href="#about">About</a>
-        <a href="#services">Services</a>
-        <a href="#products">Products</a>
-        <a href="#contact">Contact</a>
-        <a class="btn-mini" href="/admin/">Admin</a>
+<nav class="menu">
+  <a href="/" class="{% if request.path == '/' %}active{% endif %}">Home</a>
+
+  <a href="/about/" class="{% if request.path == '/about/' %}active{% endif %}">About</a>
+
+  <a href="/services/" class="{% if request.path == '/services/' %}active{% endif %}">Services</a>
+   <a href="/products/" class="{% if request.path == '/products/' %}active{% endif %}">Products</a>
+ <a href="/contact/" class="{% if request.path == '/contact/' %}active{% endif %}">Contact</a>
+  <a class="cart-btn" href="{% url 'cart' %}" aria-label="Cart">
+    🛒 <span class="cart-badge">0</span></a>
+</nav>
+
       </nav>
     </div>
   </header>
@@ -46,9 +52,12 @@
       </p>
 
       <div class="cta cta-centered">
-        <a class="btn" href="#contact">Message Us</a>
+        <a class="btn"
+        href="https://www.facebook.com/profile.php?id=61586104528683"
+         target="_blank">
+       Message Us
+      </a>
         <a class="btn-outline" href="#products">View Products</a>
-        <a class="btn-danger" href="#services">Book a Service</a>
       </div>
     </div>
   </section>
@@ -61,41 +70,30 @@
         <p class="section-sub">Quality auto parts at competitive prices</p>
 
         <div class="grid-3">
-          <div class="product">
-            <div class="product-img">🛞</div>
-            <div class="product-body">
-              <small>Brakes</small>
-              <h4>Brake Pads Set</h4>
-              <div class="price">₱1,250</div>
-              <a class="btn-mini" href="/register-purchase/">Add</a>
-            </div>
-          </div>
+  {% for p in featured_products %}
+  <div class="product">
 
-          <div class="product">
-            <div class="product-img">🛢️</div>
-            <div class="product-body">
-              <small>Filters</small>
-              <h4>Oil Filter</h4>
-              <div class="price">₱350</div>
-              <a class="btn-mini" href="/register-purchase/">Add</a>
-            </div>
-          </div>
+    <div class="product-img">
+      {% if p.image %}
+        <img src="{{ p.image.url }}" alt="{{ p.name }}">
+      {% else %}
+        <img src="{% static 'blog/img/placeholder.png' %}" alt="{{ p.name }}">
+      {% endif %}
+    </div>
 
-          <div class="product">
-            <div class="product-img">🧰</div>
-            <div class="product-body">
-              <small>Filters</small>
-              <h4>Air Filter</h4>
-              <div class="price">₱450</div>
-              <a class="btn-mini" href="/register-purchase/">Add</a>
-            </div>
-          </div>
-        </div>
+    <div class="product-body">
+      <small>{{ p.category|default:"Other" }}</small>
+      <h4>{{ p.name }}</h4>
+      <div class="price">₱{{ p.price }}</div>
 
-        <div class="center">
-          <a class="btn-wide" href="/register-purchase/">Register a Purchase</a>
-        </div>
-      </div>
+      <a class="btn-mini" href="{% url 'cart_add' p.id %}">
+        Add
+      </a>
+    </div>
+
+  </div>
+  {% endfor %}
+</div>
     </section>
 
     <!-- CONTACT -->
@@ -115,17 +113,9 @@
           <div>
             <h4>Details</h4>
             <p>📞 +63 970 110 2359</p>
-            <p>✉️ Arielmanuel420@gmail.com</p>
+            <p>✉️ michaelmanuel17@gmail.com</p>
             <p>📍 Philippines</p>
           </div>
-
-          <div>
-            <h4>Staff Purchase</h4>
-            <p>dipa tapos</p>
-            <a class="btn" href="/register-purchase/">Register Purchase</a>
-          </div>
-        </div>
-      </div>
     </section>
 
     <footer class="footer">

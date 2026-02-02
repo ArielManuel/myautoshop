@@ -1,0 +1,94 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="cart-page section">
+  <div class="container cart-layout">
+
+    <!-- LEFT: cart items -->
+    <div class="cart-left">
+      <h1 class="page-title">Your <span>Cart</span></h1>
+
+      {% if items %}
+        <div class="cart-items">
+          {% for row in items %}
+          <div class="cart-item">
+            <div class="cart-item-img">
+              {% if row.product.image %}
+                <img src="{{ row.product.image.url }}" alt="{{ row.product.name }}">
+              {% else %}
+                <img src="{% static 'blog/img/placeholder.png' %}" alt="{{ row.product.name }}">
+              {% endif %}
+            </div>
+
+            <div class="cart-item-info">
+              <div class="cart-item-top">
+                <div>
+                  <div class="cart-item-name">{{ row.product.name }}</div>
+                  <div class="cart-item-cat">{{ row.product.category|default:"Other" }}</div>
+                </div>
+
+                <a class="cart-remove"
+                   href="{% url 'cart_remove' row.product.id %}"
+                   title="Remove">🗑️</a>
+              </div>
+
+              <div class="cart-item-bottom">
+                <div class="cart-price">₱{{ row.product.price }}</div>
+
+                <form class="qty-form" method="post" action="{% url 'cart_update' row.product.id %}">
+                  {% csrf_token %}
+                  <button class="qty-btn" type="button" onclick="this.nextElementSibling.stepDown(); this.closest('form').submit();">−</button>
+                  <input class="qty-input" type="number" name="qty" min="1" value="{{ row.qty }}">
+                  <button class="qty-btn" type="button" onclick="this.previousElementSibling.stepUp(); this.closest('form').submit();">+</button>
+                </form>
+
+                <div class="cart-subtotal">₱{{ row.subtotal|floatformat:2 }}</div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="muted">Cart is empty.</p>
+        <a class="btn" href="{% url 'products' %}">Go to Products</a>
+      {% endif %}
+    </div>
+
+    <!-- RIGHT: order summary -->
+    <aside class="cart-right">
+      <div class="summary-card">
+        <h3>Order Summary</h3>
+
+        <div class="summary-list">
+          {% for row in items %}
+            <div class="summary-row">
+              <span>{{ row.product.name }} x{{ row.qty }}</span>
+              <span>₱{{ row.subtotal|floatformat:2 }}</span>
+            </div>
+          {% endfor %}
+        </div>
+
+        <div class="summary-divider"></div>
+
+        <div class="summary-total">
+          <span>Total</span>
+          <span class="summary-total-price">₱{{ total|floatformat:2 }}</span>
+        </div>
+
+        <a class="summary-btn"
+        href="https://www.facebook.com/profile.php?id=61586104528683"target="_blank">
+       <span class="fb-icon">f</span> Complete Order on Facebook
+       </a>
+
+        <a class="summary-outline" href="{% url 'products' %}">Continue Shopping</a>
+
+        <p class="summary-note">Orders are confirmed via Facebook Messenger</p>
+      </div>
+    </aside>
+
+  </div>
+</section>
+{% endblock %}
+
+

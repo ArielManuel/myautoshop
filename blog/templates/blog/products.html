@@ -1,0 +1,67 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="page-title-center">
+  <h1 class="page-title">Our <span>Products</span></h1>
+  <p class="page-subtitle">
+    Quality auto and truck parts at competitive prices. Browse our extensive catalog and add items to your cart.
+  </p>
+</div>
+
+<div class="product-filters">
+  <a href="{% url 'products' %}"
+     class="pill {% if not active_category %}active{% endif %}">
+     All
+  </a>
+
+  <a href="{% url 'products' %}?category=Bearings"
+     class="pill {% if active_category == 'Bearings' %}active{% endif %}">
+     Bearings
+  </a>
+
+  <a href="{% url 'products' %}?category=Filters"
+     class="pill {% if active_category == 'Filters' %}active{% endif %}">
+     Filters
+  </a>
+
+  <a href="{% url 'products' %}?category=Belts"
+     class="pill {% if active_category == 'Belts' %}active{% endif %}">
+     Belts
+  </a>
+
+  <a href="{% url 'products' %}?category=Electrical Parts"
+     class="pill {% if active_category == 'Electrical Parts' %}active{% endif %}">
+     Electrical Parts
+  </a>
+
+  <a href="{% url 'products' %}?category=Other"
+     class="pill {% if active_category == 'Other' %}active{% endif %}">
+     Other
+  </a>
+</div>
+
+<div class="products-grid">
+  {% for p in products %}
+  <div class="product-card">
+    <div class="product-img">
+      {% if p.image %}
+        <img src="{{ p.image.url }}" alt="{{ p.name }}">
+      {% else %}
+        <img src="{% static 'blog/img/placeholder.png' %}" alt="{{ p.name }}">
+      {% endif %}
+    </div>
+
+    <div class="product-body">
+      <small class="product-cat">{{ p.category|default:"Other" }}</small>
+      <h4 class="product-name">{{ p.name }}</h4>
+
+      <div class="product-bottom">
+        <div class="product-price">₱{{ p.price }}</div>
+        <a class="add-btn" href="{% url 'cart_add' p.id %}">🛒 Add</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
